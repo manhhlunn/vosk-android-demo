@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 
 android {
     namespace "org.vosk.models"
-    compileSdkVersion 33
+    compileSdk 34
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
     }
     buildFeatures {
         buildConfig = false
@@ -19,11 +19,30 @@ android {
 
 tasks.register('genUUID') {
     def uuid = UUID.randomUUID().toString()
-    def odir = file("$buildDir/generated/assets/model-en-us")
+    def odir = layout.buildDirectory.file("generated/assets/model-en").get().asFile
     def ofile = file("$odir/uuid")
+
+    def uuid2 = UUID.randomUUID().toString()
+    def odir2 = layout.buildDirectory.file("generated/assets/model-cn").get().asFile
+    def ofile2 = file("$odir2/uuid")
+
+    def uuid3 = UUID.randomUUID().toString()
+    def odir3 = layout.buildDirectory.file("generated/assets/model-ru").get().asFile
+    def ofile3 = file("$odir3/uuid")
+
+    def uuid4 = UUID.randomUUID().toString()
+    def odir4 = layout.buildDirectory.file("generated/assets/model-ja").get().asFile
+    def ofile4 = file("$odir4/uuid")
+
     doLast {
         mkdir odir
+        mkdir odir2
+        mkdir odir3
+        mkdir odir4
         ofile.text = uuid
+        ofile2.text = uuid2
+        ofile3.text = uuid3
+        ofile4.text = uuid4
     }
 }
 
